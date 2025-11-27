@@ -35,6 +35,7 @@ public class PostController {
     public void deletePost(@PathVariable Long id) {
         postCommandService.deletePost(id);
     }
+
     // READ ONE
     @GetMapping("/{id}")
     public PostResponseDto getPost(@PathVariable Long id) {
