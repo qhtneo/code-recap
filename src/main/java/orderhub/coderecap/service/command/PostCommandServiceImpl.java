@@ -5,6 +5,7 @@ import orderhub.coderecap.dto.request.PostCreateRequestDto;
 import orderhub.coderecap.dto.response.PostResponseDto;
 import orderhub.coderecap.dto.request.PostUpdateRequestDto;
 import orderhub.coderecap.entity.Post;
+import orderhub.coderecap.exception.PostNotFoundException;
 import orderhub.coderecap.repository.PostRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,7 @@ public class PostCommandServiceImpl implements PostCommandService{
     @Override
     public PostResponseDto updatePost(Long id, PostUpdateRequestDto request) {
         Post post = postRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Post not found"));
+                (PostNotFoundException::new));
 
         post.update(request.getTitle(), request.getContent());
         return Post.toResponseDto(post);

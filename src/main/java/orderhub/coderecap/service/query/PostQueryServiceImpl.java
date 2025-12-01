@@ -3,6 +3,7 @@ package orderhub.coderecap.service.query;
 import lombok.RequiredArgsConstructor;
 import orderhub.coderecap.dto.response.PostResponseDto;
 import orderhub.coderecap.entity.Post;
+import orderhub.coderecap.exception.PostNotFoundException;
 import orderhub.coderecap.repository.PostRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ public class PostQueryServiceImpl implements PostQueryService {
     @Override
     public PostResponseDto findById(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Post not found"));
+                .orElseThrow(PostNotFoundException::new);
         return Post.toResponseDto(post);
     }
 
