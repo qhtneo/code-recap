@@ -1,5 +1,6 @@
 package orderhub.coderecap.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import orderhub.coderecap.dto.request.PostCreateRequestDto;
 import orderhub.coderecap.dto.response.PostResponseDto;
@@ -20,13 +21,13 @@ public class PostController {
 
     // Create
     @PostMapping
-    public PostResponseDto createPost(@RequestBody PostCreateRequestDto request) {
+    public PostResponseDto createPost(@Valid @RequestBody PostCreateRequestDto request) {
         return postCommandService.createPost(request);
     }
 
     // Update
     @PutMapping("/{id}")
-    public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostUpdateRequestDto request) {
+    public PostResponseDto updatePost(@PathVariable Long id, @Valid @RequestBody PostUpdateRequestDto request) {
         return postCommandService.updatePost(id, request);
     }
 

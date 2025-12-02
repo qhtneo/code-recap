@@ -2,6 +2,7 @@ package orderhub.coderecap.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import orderhub.coderecap.dto.response.PostResponseDto;
 
 import java.time.LocalDateTime;
 
@@ -23,11 +24,6 @@ public class Post {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Post(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
-
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
@@ -42,5 +38,16 @@ public class Post {
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public static PostResponseDto toResponseDto(Post post) {
+        return new PostResponseDto(
+                post.getId(),
+                post.getTitle(),
+                post.getContent(),
+                post.getAuthor(),
+                post.getCreatedAt(),
+                post.getUpdatedAt()
+        );
     }
 }
